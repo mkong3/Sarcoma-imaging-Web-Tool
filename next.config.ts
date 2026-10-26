@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
+// CI passes the Pages base path; must match the GitHub repo name (served at /<repo>/).
+const basePath = process.env.PAGES_BASE_PATH ?? "/sarcoma.webtool";
+
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // cacheComponents/partialPrefetching are omitted: PPR is incompatible with static export.
+  output: "export",
+  basePath,
   turbopack: {
     rules: {
       "*.css": {
